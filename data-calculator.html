@@ -47,6 +47,7 @@
   <button onclick="calculateData()">Calculate</button>
   <div id="result"></div>
 </div>
+<p><a href="index.html"> Home</a></p>
 <p><a href="index.html">← Back to Fuel Calculator</a></p>
 <p><a href="electricity-calculator.html">Try Electricity Bill Estimator →</a></p>
 <script>
@@ -57,7 +58,7 @@ function calculateData() {
     alert("Fill all fields");
     return;
   }
-  const costPerGB = price / data; // <-- THIS LINE MUST EXIST
+  const costPerGB = price / data;
   document.getElementById("result").innerHTML = `
     <p><strong>Cost per GB:</strong> ₦${costPerGB.toFixed(2)}</p>
     <small>Lower cost per GB = better value</small>
