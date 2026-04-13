@@ -2,79 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SabiCalc - Transport Fare Estimator Nigeria</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <title>Transport Fare Estimator Nigeria - SabiCalc</title>
+  <meta name="description" content="Estimate transport fares in Nigeria based on distance and transport type. Plan trips easily.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    h1{
-      margin-bottom: 0;
-    }
-    body {
-      font-family: Arial;
-      padding: 20px;
-      background: #f5f5f5;
-    }
-    .container {
-      max-width: 420px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-    }
-    button {
-      background: teal;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    small {
-      color: #777;
-      display: block;
-      margin-bottom: 15px;
-    }
-  </style>
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
 <div class="container">
-  <h1>SabiCalc</h1>
-  <small>Smart everyday calculators for Nigerians</small>
-  <h2>Transport Fare Estimator</h2>
-  <p>Estimate transport fares for trips across Nigeria based on distance and typical pricing</p>
-  <p>Calculate how much your journey may cost whether you're traveling within Lagos or between cities like Abuja and Ibadan. Perfect for budgeting daily transport and planning trips.</p>
-  <label>Distance (km)</label>
-  <input type="number" id="distance" placeholder="e.g 10">
-  <small>Example: Short trips = 2–10 km</small>
-  <label>Transport Type</label>
+  <h1>Transport Fare Estimator Nigeria</h1>
+  <h2>Transport Calculator</h2>
+  <p>Estimate transport cost based on distance.</p>
+  <label>Distance</label>
+  <input type="number" id="distance">
+  <label>Type</label>
   <select id="type">
-    <option value="">-- Select --</option>
-    <option value="50">Bus (Danfo)</option>
-    <option value="80">Keke (Tricycle)</option>
-    <option value="100">Taxi / Bolt</option>
+    <option value="50">Bus</option>
+    <option value="80">Keke</option>
+    <option value="100">Taxi</option>
   </select>
-  <small>Different transport = different cost per km</small>
-  <button onclick="calculateFare()">Estimate Fare</button>
+  <button onclick="calc()">Estimate</button>
   <div id="result"></div>
-  <p><a href="index.html">🏠 Explore All Tools</a></p>
+  <h2>Common Transport Questions</h2>
+  <ul>
+    <li>How much is transport in Lagos?</li>
+    <li>Why do fares change?</li>
+    <li>How do I budget transport?</li>
+  </ul>
+  <p><strong>Tip:</strong> Fuel price affects transport fares.</p>
+  <p><a href="index.html">Home</a></p>
 </div>
 <script>
-function calculateFare() {
-  const distance = document.getElementById("distance").value;
-  const rate = document.getElementById("type").value;
-  if (!distance || !rate) {
-    alert("Fill all fields");
-    return;
-  }
-  const minFare = distance * rate;
-  const maxFare = minFare + (distance * 20);
-  document.getElementById("result").innerHTML = `
-    <p><strong>Estimated Fare:</strong> ₦${minFare.toLocaleString()} - ₦${maxFare.toLocaleString()}</p>
-    <small>Prices may vary depending on traffic, area, and driver mood.</small>
-  `;
+function calc() {
+  const d = document.getElementById("distance").value;
+  const t = document.getElementById("type").value;
+  if (!d || !t) return alert("Fill all fields");
+  const cost = d * t;
+  document.getElementById("result").innerHTML =
+    `<p>Estimated Fare: ₦${cost.toLocaleString()}</p>`;
 }
 </script>
 </body>
