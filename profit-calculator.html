@@ -2,76 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SabiCalc - Side Hustle Profit Calculator Nigeria</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <title>Side Hustle Profit Calculator Nigeria - SabiCalc</title>
+  <meta name="description" content="Calculate profit from side hustles in Nigeria. Enter cost, price and quantity to see real business profit.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    h1{
-      margin-bottom: 0;
-    }
-    body {
-      font-family: Arial;
-      padding: 20px;
-      background: #f5f5f5;
-    }
-    .container {
-      max-width: 420px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-    }
-    button {
-      background: green;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    small {
-      color: #777;
-      display: block;
-      margin-bottom: 15px;
-    }
-  </style>
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
 <div class="container">
-  <h1>SabiCalc</h1>
-  <small>Smart everyday calculators for Nigerians</small>
-  <h2>Side Hustle Profit Calculator</h2>
-  <p>Calculate the profit from your side hustle or small business in Nigeria.</p>
-  <p>Enter your costs, selling price, and number of units to see your total profit. Perfect for small business owners, vendors, and anyone trying to make smarter financial decisions.</p>
-  <label>Cost per Item (₦)</label>
-  <input type="number" id="cost" placeholder="e.g 500">
-  <label>Selling Price (₦)</label>
-  <input type="number" id="price" placeholder="e.g 1000">
-  <label>Number of Items Sold</label>
-  <input type="number" id="quantity" placeholder="e.g 20">
-  <button onclick="calculateProfit()">Calculate Profit</button>
+  <h1>Side Hustle Profit Calculator Nigeria</h1>
+  <small>SabiCalc</small>
+  <h2>Profit Calculator</h2>
+  <p>Calculate business profit easily.</p>
+  <label>Cost</label>
+  <input type="number" id="cost">
+  <label>Price</label>
+  <input type="number" id="price">
+  <label>Quantity</label>
+  <input type="number" id="qty">
+  <button onclick="calc()">Calculate</button>
   <div id="result"></div>
-  <p><a href="index.html">🏠 Explore All Tools</a></p>
+  <h2>Common Profit Questions</h2>
+  <ul>
+    <li>Am I actually making profit?</li>
+    <li>How do I price products?</li>
+    <li>What is my real income?</li>
+  </ul>
+  <p><strong>Tip:</strong> Always include hidden costs.</p>
+  <p><a href="index.html">Home</a></p>
 </div>
 <script>
-function calculateProfit() {
-  const cost = document.getElementById("cost").value;
-  const price = document.getElementById("price").value;
-  const quantity = document.getElementById("quantity").value;
-  if (!cost || !price || !quantity) {
-    alert("Fill all fields");
-    return;
-  }
-  const profitPerItem = price - cost;
-  const totalProfit = profitPerItem * quantity;
-  document.getElementById("result").innerHTML = `
-    <p><strong>Profit per Item:</strong> ₦${Number(profitPerItem).toLocaleString()}</p>
-    <p><strong>Total Profit:</strong> ₦${Number(totalProfit).toLocaleString()}</p>
-    <small>If this looks low… now you know why you’re tired.</small>
-  `;
+function calc() {
+  const c = document.getElementById("cost").value;
+  const p = document.getElementById("price").value;
+  const q = document.getElementById("qty").value;
+  if (!c || !p || !q) return alert("Fill all fields");
+  const profit = (p - c) * q;
+  document.getElementById("result").innerHTML =
+    `<p><strong>Profit:</strong> ₦${profit.toLocaleString()}</p>`;
 }
 </script>
 </body>
