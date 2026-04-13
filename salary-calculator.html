@@ -2,71 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SabiCalc - Salary to Daily Spending Calculator Nigeria</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <title>Salary to Daily Budget Calculator Nigeria - SabiCalc</title>
+  <meta name="description" content="Convert monthly salary into daily and weekly spending budget. Helps Nigerians manage money and avoid running out before month end.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="favicon.png">
   <style>
-    h1{
-      margin-bottom: 0;
-    }
-    body {
-      font-family: Arial;
-      padding: 20px;
-      background: #f5f5f5;
-    }
-    .container {
-      max-width: 420px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-    }
-    button {
-      background: purple;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    small {
-      color: #777;
-      display: block;
-      margin-bottom: 15px;
-    }
+    body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+    .container { max-width: 420px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
+    input, button { width: 100%; padding: 10px; margin-top: 10px; }
+    button { background: purple; color: white; border: none; }
+    small { color: #777; display: block; margin-bottom: 15px; }
+    h1 { margin-bottom: 0; }
   </style>
 </head>
 <body>
 <div class="container">
-  <h1>SabiCalc</h1>
-  <small>Smart everyday calculators for Nigerians</small>
+  <h1>Salary to Daily Budget Calculator Nigeria</h1>
+  <small>SabiCalc - Smart everyday calculators for Nigerians</small>
   <h2>Salary to Daily Spending Calculator</h2>
-  <p>Convert your monthly salary into daily spending money for better financial planning.</p>
-  <p>See how much you can realistically spend per day after dividing your income. Perfect for budgeting, saving, and avoiding mid-month financial struggles.</p>
+  <p>Convert your monthly salary into daily and weekly spending limits.</p>
+  <p>Helps you understand how much you can safely spend per day without running out of money before month end.</p>
   <label>Monthly Salary (₦)</label>
-  <input type="number" id="salary" placeholder="e.g 100000">
-  <small>We’ll break this into daily and weekly spending</small>
+  <input type="number" id="salary">
   <button onclick="calculate()">Calculate</button>
   <div id="result"></div>
-  <p><a href="index.html">🏠 Explore All Tools</a></p>
+  <h2>Common Salary Budget Questions</h2>
+  <ul>
+    <li>How do I manage my monthly salary?</li>
+    <li>Why does my money finish before month end?</li>
+    <li>How much should I spend per day?</li>
+  </ul>
+  <p><strong>Tip:</strong> Split your income into spending, savings, and emergency funds.</p>
+  <p><a href="index.html">🏠 Home</a></p>
 </div>
 <script>
 function calculate() {
   const salary = document.getElementById("salary").value;
-  if (!salary) {
-    alert("Enter your salary");
-    return;
-  }
+  if (!salary) return alert("Enter salary");
   const daily = salary / 30;
   const weekly = salary / 4;
-  document.getElementById("result").innerHTML = `
-    <p><strong>Daily Budget:</strong> ₦${Number(daily).toLocaleString()}</p>
-    <p><strong>Weekly Budget:</strong> ₦${Number(weekly).toLocaleString()}</p>
-    <small>Spend above this and… well… you already know.</small>
-  `;
+  document.getElementById("result").innerHTML =
+    `<p><strong>Daily Budget:</strong> ₦${daily.toLocaleString()}</p>
+     <p><strong>Weekly Budget:</strong> ₦${weekly.toLocaleString()}</p>`;
 }
 </script>
 </body>
