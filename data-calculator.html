@@ -2,73 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SabiCalc - Data Bundle Value Calculator Nigeria</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <title>Data Bundle Value Calculator Nigeria - SabiCalc (₦ per GB Tool)</title>
+  <meta name="description" content="Compare data bundle prices across MTN, Airtel, Glo and other networks in Nigeria. Calculate cost per GB and find the cheapest data plans.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="favicon.png">
   <style>
-    h1{
-      margin-bottom: 0;
-    }
-    body {
-      font-family: Arial;
-      padding: 20px;
-      background: #f5f5f5;
-    }
-    .container {
-      max-width: 400px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-    }
-    button {
-      background: green;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    small {
-      color: #777;
-      display: block;
-      margin-bottom: 15px;
-    }
+    body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+    .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
+    input, button { width: 100%; padding: 10px; margin-top: 10px; }
+    button { background: green; color: white; border: none; cursor: pointer; }
+    small { color: #777; display: block; margin-bottom: 15px; }
+    h1 { margin-bottom: 0; }
   </style>
 </head>
 <body>
 <div class="container">
-  <h1>SabiCalc</h1>
-  <small>Smart everyday calculators for Nigerians</small>
+  <h1>Data Bundle Value Calculator Nigeria</h1>
+  <small>SabiCalc - Smart everyday calculators for Nigerians</small>
   <h2>Data Bundle Value Calculator</h2>
   <p>Compare data bundle prices across Nigerian networks to find the best value for your money.</p>
-  <p>Calculate cost per GB for MTN, Airtel, Glo, and others so you can choose the cheapest option. Perfect for saving data costs and maximizing your internet usage.</p>
+  <p>Calculate cost per GB for MTN, Airtel, Glo, and others.</p>
   <label>Bundle Price (₦)</label>
-  <input type="number" id="price" placeholder="e.g 2000">
-  <small>Enter how much the data costs</small>
+  <input type="number" id="price">
   <label>Data Size (GB)</label>
-  <input type="number" id="data" placeholder="e.g 5">
-  <small>Enter the total GB you get</small>
+  <input type="number" id="data">
   <button onclick="calculateData()">Calculate</button>
   <div id="result"></div>
+  <h2>Common Data Bundle Questions</h2>
+  <ul>
+    <li>Which network gives the cheapest data in Nigeria?</li>
+    <li>How much data do I get for ₦1000?</li>
+    <li>How do I compare data bundle prices?</li>
+  </ul>
+  <p><strong>Tip:</strong> Always compare cost per GB, not just total price.</p>
+  <p><a href="index.html">🏠 Home</a></p>
 </div>
-<p><a href="index.html">🏠 Explore All Tools</a></p>
 <script>
 function calculateData() {
   const price = document.getElementById("price").value;
   const data = document.getElementById("data").value;
-  if (!price || !data) {
-    alert("Fill all fields");
-    return;
-  }
+  if (!price || !data) return alert("Fill all fields");
   const costPerGB = price / data;
-  document.getElementById("result").innerHTML = `
-    <p><strong>Cost per GB:</strong> ₦${costPerGB.toFixed(2)}</p>
-    <small>Lower cost per GB = better value</small>
-  `;
+  document.getElementById("result").innerHTML =
+    `<p><strong>Cost per GB:</strong> ₦${costPerGB.toFixed(2)}</p>`;
 }
 </script>
 </body>
