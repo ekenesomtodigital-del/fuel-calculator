@@ -2,54 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SabiCalc - Fuel Cost Calculator Nigeria</title>
+  <title>Fuel Cost Calculator Nigeria - SabiCalc (Trip Cost Estimator)</title>
+  <meta name="description" content="Calculate fuel cost for trips in Nigeria based on distance, fuel consumption, and petrol price. Simple fuel cost calculator for road trips like Lagos to Ibadan.">
   <meta name="google-site-verification" content="Jc43VGn1h3iVvr3SCvgWIf9KXve0yq3mdas4JWm0eA4" />
   <link rel="icon" type="image/png" href="favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    h1{
-      margin-bottom: 0;
-    }
-    body {
-      font-family: Arial;
-      padding: 20px;
-      background: #f5f5f5;
-    }
-    .container {
-      max-width: 400px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-    }
-    button {
-      background: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    small {
-      color: #777;
-      display: block;
-      margin-bottom: 15px;
-    }
+    h1 { margin-bottom: 0; }
+    body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+    .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
+    input, select, button { width: 100%; padding: 10px; margin-top: 10px; }
+    button { background: #007bff; color: white; border: none; cursor: pointer; }
+    small { color: #777; display: block; margin-bottom: 15px; }
   </style>
 </head>
 <body>
 <div class="container">
-  <h1>SabiCalc</h1>
-  <small>Smart everyday calculators for Nigerians</small>
+  <h1>Fuel Cost Calculator Nigeria</h1>
+  <small>SabiCalc - Smart everyday calculators for Nigerians</small>
   <h2>Fuel Cost Calculator</h2>
   <p>Use this fuel cost calculator to estimate petrol expenses for your journey anywhere in Nigeria.</p>
-  <p>Calculate how much fuel your trip will cost Nigeria based on distance, fuel consumption, and petrol price. Perfect or trips like Lagos to Ibadan or Abuja to Kaduna.</p>
+  <p>Calculate how much your trip will cost based on distance, fuel consumption, and petrol price. Perfect for trips like Lagos to Ibadan or Abuja to Kaduna.</p>
   <label>Distance (km)</label>
   <input type="number" id="distance" placeholder="Enter distance">
-  <small>Example: Lagos to Ibadan ≈ 130km</small>
   <label>Select Vehicle Type</label>
   <select id="vehicle">
     <option value="">-- Choose Vehicle --</option>
@@ -57,22 +32,26 @@
     <option value="10">SUV</option>
     <option value="5">Bus</option>
   </select>
-  <small>This will auto-fill fuel consumption</small>
   <label>Fuel Consumption (km/l)</label>
   <input type="number" id="consumption" placeholder="Or enter manually">
-  <small>Most cars: 10–15 km/l</small>
   <label>Fuel Price (₦/litre)</label>
   <input type="number" id="price" placeholder="Enter fuel price">
-  <small>Check current petrol price in your area</small>
   <button onclick="calculate()">Calculate</button>
   <div id="result"></div>
+  <h2>Common Fuel Cost Questions in Nigeria</h2>
+  <ul>
+    <li>How much fuel do I need from Lagos to Ibadan?</li>
+    <li>How much will petrol cost for a road trip in Nigeria?</li>
+    <li>How do I calculate fuel consumption per kilometer?</li>
+  </ul>
+  <p><strong>Tip:</strong> Fuel prices in Nigeria change often, so always use current petrol price for accurate estimates.</p>
+  <p><a href="data-calculator.html">📶 Data Bundle Value Calculator</a></p>
+  <p><a href="electricity-calculator.html">⚡ Electricity Bill Estimator</a></p>
+  <p><a href="salary-calculator.html">💰 Salary to Daily Spending Calculator</a></p>
+  <p><a href="loan-calculator.html">💸 Loan Repayment Calculator</a></p>
+  <p><a href="transport-calculator.html">🚗 Transport Fare Estimator</a></p>
+  <p><a href="profit-calculator.html">📈 Side Hustle Profit Calculator</a></p>
 </div>
-<p><a href="data-calculator.html">Try Data Bundle Calculator →</a></p>
-<p><a href="electricity-calculator.html">Electricity Bill Estimator →</a></p>
-<p><a href="salary-calculator.html">Salary → Daily Spending Calculator →</a></p>
-<p><a href="loan-calculator.html">Loan Repayment Calculator →</a></p>
-<p><a href="transport-calculator.html">Transport Fare Estimator →</a></p>
-<p><a href="profit-calculator.html">Side Hustle Profit Calculator →</a></p>
 <script src="script.js"></script>
 </body>
 </html>
