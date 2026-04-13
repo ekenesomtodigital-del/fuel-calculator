@@ -2,92 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SabiCalc - Electricity Bill Estimator Nigeria</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <title>Electricity Bill Calculator Nigeria - SabiCalc (NEPA Cost Estimator)</title>
+  <meta name="description" content="Estimate electricity bills in Nigeria based on appliance usage. Calculate NEPA costs and manage electricity consumption easily.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="favicon.png">
   <style>
-    h1{
-      margin-bottom: 0;
-    }
-    body {
-      font-family: Arial;
-      padding: 20px;
-      background: #f5f5f5;
-    }
-    .container {
-      max-width: 420px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    select, input, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-    }
-    button {
-      background: orange;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    small {
-      color: #777;
-      display: block;
-      margin-bottom: 15px;
-    }
+    body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+    .container { max-width: 420px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
+    input, select, button { width: 100%; padding: 10px; margin-top: 10px; }
+    button { background: orange; color: white; border: none; }
+    small { color: #777; display: block; margin-bottom: 15px; }
+    h1 { margin-bottom: 0; }
   </style>
 </head>
 <body>
 <div class="container">
-  <h1>SabiCalc</h1>
-  <small>Smart everyday calculators for Nigerians</small>
+  <h1>Electricity Bill Calculator Nigeria</h1>
+  <small>SabiCalc - Smart everyday calculators for Nigerians</small>
   <h2>Electricity Bill Estimator</h2>
-  <p>Estimate your electricity bill in Nigeria based on your appliances and usage time.</p>
-  <p>Calculate how much power your devices consume and what it costs under current electricity rates. Perfect for managing NEPA bills and reducing energy waste.</p>
-  <label>Select Appliance</label>
+  <p>Estimate your electricity usage and cost based on appliances.</p>
+  <label>Appliance</label>
   <select id="appliance">
-    <option value="">-- Choose Appliance --</option>
     <option value="75">Fan</option>
     <option value="100">TV</option>
     <option value="200">Fridge</option>
     <option value="1500">AC</option>
     <option value="60">Light Bulb</option>
   </select>
-  <small>We estimate power usage automatically</small>
-  <label>How many of them do you use?</label>
-  <input type="number" id="quantity" placeholder="e.g 2">
-  <label>Hours used per day</label>
-  <input type="number" id="hours" placeholder="e.g 5">
-  <label>Number of days</label>
-  <input type="number" id="days" placeholder="e.g 30">
-  <label>Electricity rate (₦ per kWh)</label>
-  <input type="number" id="rate" placeholder="Default: 100">
-  <button onclick="calculate()">Calculate Bill</button>
+  <label>Quantity</label>
+  <input type="number" id="quantity">
+  <label>Hours per day</label>
+  <input type="number" id="hours">
+  <label>Days</label>
+  <input type="number" id="days">
+  <label>Rate (₦/kWh)</label>
+  <input type="number" id="rate" value="100">
+  <button onclick="calculate()">Calculate</button>
   <div id="result"></div>
+  <h2>Common Electricity Questions</h2>
+  <ul>
+    <li>Why is my NEPA bill high?</li>
+    <li>How is electricity calculated in Nigeria?</li>
+    <li>How much do appliances cost to run?</li>
+  </ul>
+  <p><strong>Tip:</strong> Even standby devices increase your bill.</p>
+  <p><a href="index.html">🏠 Home</a></p>
 </div>
-<p><a href="index.html">🏠 Explore All Tools</a></p>
 <script>
 function calculate() {
-  const appliancePower = document.getElementById("appliance").value;
-  const quantity = document.getElementById("quantity").value;
+  const power = document.getElementById("appliance").value;
+  const qty = document.getElementById("quantity").value;
   const hours = document.getElementById("hours").value;
   const days = document.getElementById("days").value;
   const rate = document.getElementById("rate").value || 100;
-  if (!appliancePower || !quantity || !hours || !days) {
-    alert("Please fill all fields");
-    return;
-  }
-  const totalWatts = appliancePower * quantity;
-  const powerKW = totalWatts / 1000;
-  const totalKWh = powerKW * hours * days;
-  const totalCost = totalKWh * rate;
-  document.getElementById("result").innerHTML = `
-    <p><strong>Estimated Usage:</strong> ${totalKWh.toFixed(2)} kWh</p>
-    <p><strong>Estimated Bill:</strong> ₦${Number(totalCost).toLocaleString()}</p>
-    <small>Estimated cost based on your usage pattern.</small>
-  `;
+  if (!power || !qty || !hours || !days) return alert("Fill all fields");
+  const kwh = (power * qty * hours * days) / 1000;
+  const cost = kwh * rate;
+  document.getElementById("result").innerHTML =
+    `<p><strong>Usage:</strong> ${kwh.toFixed(2)} kWh</p>
+     <p><strong>Cost:</strong> ₦${cost.toLocaleString()}</p>`;
 }
 </script>
 </body>
