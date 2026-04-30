@@ -1,0 +1,7 @@
+https://fuel-calculator-liart.vercel.app/
+https://fuel-calculator-liart.vercel.app/data-calculator.html
+https://fuel-calculator-liart.vercel.app/electricity-calculator.html
+https://fuel-calculator-liart.vercel.app/loan-calculator.html
+https://fuel-calculator-liart.vercel.app/profit-calculator.html
+https://fuel-calculator-liart.vercel.app/transport-calculator.html
+https://fuel-calculator-liart.vercel.app/salary-calculator.html
