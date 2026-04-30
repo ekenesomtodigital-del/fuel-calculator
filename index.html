@@ -2,56 +2,1219 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Fuel Cost Calculator Nigeria - SabiCalc (Trip Cost Estimator)</title>
-  <meta name="description" content="Calculate fuel cost for trips in Nigeria based on distance, fuel consumption, and petrol price. Simple fuel cost calculator for road trips like Lagos to Ibadan.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fuel Cost Calculator Nigeria 2025 – Petrol Trip Cost Estimator | SabiCalc</title>
+  <meta name="description" content="Calculate exact petrol cost for any trip in Nigeria. Enter your distance, vehicle type, and current fuel price to get instant results. Trusted by Nigerians for Lagos–Ibadan, Abuja–Kaduna & more.">
+  <meta name="keywords" content="fuel cost calculator Nigeria, petrol cost calculator, Lagos Ibadan fuel cost, road trip cost Nigeria, SabiCalc, Nigerian fuel calculator 2025">
+  <meta name="robots" content="index, follow">
   <meta name="google-site-verification" content="Jc43VGn1h3iVvr3SCvgWIf9KXve0yq3mdas4JWm0eA4" />
   <link rel="icon" type="image/png" href="favicon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "SabiCalc Fuel Cost Calculator Nigeria",
+    "description": "Calculate petrol cost for any road trip in Nigeria based on distance, vehicle type and current fuel price.",
+    "url": "https://sabicalc.com/fuel-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "NGN"}
+  }
+  </script>
+
   <style>
-    h1 { margin-bottom: 0; }
-    body { font-family: Arial; padding: 20px; background: #f5f5f5; }
-    .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
-    input, select, button { width: 100%; padding: 10px; margin-top: 10px; }
-    button { background: #007bff; color: white; border: none; cursor: pointer; }
-    small { color: #777; display: block; margin-bottom: 15px; }
+    /* ===================== DESIGN TOKENS ===================== */
+    :root {
+      --black:    #0a0a0a;
+      --green:    #00c853;
+      --green-mid:#00a846;
+      --green-dim:#007a32;
+      --purple:   #7c3aed;
+      --purple-light: #a855f7;
+      --gold:     #f5a623;
+      --surface:  #111318;
+      --card:     #181d24;
+      --card-2:   #1e242e;
+      --border:   rgba(255,255,255,0.07);
+      --border-green: rgba(0,200,83,0.25);
+      --text:     #e8eaf0;
+      --muted:    #8892a0;
+      --radius:   16px;
+      --radius-sm:10px;
+      --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ===================== RESET ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--black);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.65;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    img { max-width: 100%; }
+
+    /* ===================== TOP NAV ===================== */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: auto;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo span { color: var(--green); }
+    .logo-dot {
+      width: 8px; height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 2px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100%{ box-shadow: 0 0 0 0 rgba(0,200,83,0.4); }
+      50%{ box-shadow: 0 0 0 6px rgba(0,200,83,0); }
+    }
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 5px 10px;
+      border-radius: 20px;
+      border: 1px solid transparent;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--green);
+      border-color: var(--border-green);
+      background: rgba(0,200,83,0.06);
+      text-decoration: none;
+    }
+
+    /* ===================== PAGE HERO ===================== */
+    .page-hero {
+      background: linear-gradient(135deg, #0d1a0f 0%, #0e0c18 60%, #0a0a0a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 52px 20px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(0,200,83,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero-inner {
+      max-width: 700px;
+      margin: auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .page-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      background: rgba(0,200,83,0.1);
+      border: 1px solid var(--border-green);
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+    .page-hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    .page-hero h1 em {
+      font-style: normal;
+      color: var(--green);
+    }
+    .page-hero p {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ===================== LAYOUT ===================== */
+    .main-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    @media (min-width: 900px) {
+      .main-layout {
+        grid-template-columns: 480px 1fr;
+        align-items: start;
+      }
+    }
+
+    /* ===================== CALCULATOR CARD ===================== */
+    .calc-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: sticky;
+      top: 76px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+    }
+    .calc-card-header {
+      background: linear-gradient(135deg, #0d1f10 0%, #111318 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 22px 24px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .calc-icon {
+      width: 46px; height: 46px;
+      background: linear-gradient(135deg, var(--green-dim), var(--green));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .calc-card-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .calc-card-header p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .calc-body { padding: 24px; }
+
+    /* ===================== FORM ELEMENTS ===================== */
+    .field { margin-bottom: 18px; }
+    .field label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 7px;
+    }
+    .field label span { color: var(--green); margin-left: 4px; font-size: 0.7rem; }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-wrap .unit {
+      position: absolute;
+      right: 14px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      pointer-events: none;
+      font-weight: 500;
+    }
+    .input-wrap .icon-left {
+      position: absolute;
+      left: 14px;
+      font-size: 1rem;
+      pointer-events: none;
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      outline: none;
+      transition: var(--transition);
+      -moz-appearance: textfield;
+    }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+    input[type="number"]:focus,
+    select:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(0,200,83,0.12);
+    }
+    .input-wrap input[type="number"] { padding-right: 52px; }
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%238892a0' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+    select option { background: var(--surface); }
+
+    .divider-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 6px 0 18px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .divider-label::before, .divider-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ===================== CALCULATE BUTTON ===================== */
+    .btn-calc {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--green-dim) 0%, var(--green) 100%);
+      color: #000;
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 20px rgba(0,200,83,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-calc::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transition: left 0.5s;
+    }
+    .btn-calc:hover::before { left: 100%; }
+    .btn-calc:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,200,83,0.35);
+    }
+    .btn-calc:active { transform: translateY(0); }
+
+    /* ===================== RESULT PANEL ===================== */
+    .result-panel {
+      display: none;
+      margin-top: 20px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      animation: slideUp 0.4s ease;
+    }
+    @keyframes slideUp {
+      from { opacity:0; transform: translateY(12px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+    .result-panel.show { display: block; }
+
+    .result-top {
+      background: linear-gradient(135deg, #0a2210 0%, #0e1a1a 100%);
+      border: 1px solid rgba(0,200,83,0.2);
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      padding: 20px 22px 16px;
+      text-align: center;
+    }
+    .result-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--green);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .result-amount {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.03em;
+    }
+    .result-amount sup {
+      font-size: 1.1rem;
+      vertical-align: super;
+      color: var(--green);
+    }
+    .result-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .result-grid {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background-color: var(--border);
+    }
+    .result-stat {
+      background: var(--card-2);
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .result-stat .s-val {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .result-stat .s-lbl {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .result-alert {
+      margin-top: 10px;
+      background: rgba(245,166,35,0.08);
+      border: 1px solid rgba(245,166,35,0.2);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      color: var(--gold);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .btn-reset {
+      width: 100%;
+      margin-top: 12px;
+      padding: 10px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-reset:hover { border-color: var(--muted); color: var(--text); }
+
+    /* ===================== CONTENT SECTIONS ===================== */
+    .content-col { display: flex; flex-direction: column; gap: 24px; }
+
+    .section-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title .badge {
+      font-size: 0.7rem;
+      background: var(--green-dim);
+      color: var(--green);
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    /* ===================== ROUTES TABLE ===================== */
+    .routes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (min-width: 480px) {
+      .routes-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .route-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .route-card:hover {
+      border-color: var(--border-green);
+      background: rgba(0,200,83,0.04);
+      transform: translateY(-2px);
+    }
+    .route-card .r-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .route-card .r-km {
+      font-size: 0.72rem;
+      color: var(--green);
+      font-weight: 600;
+    }
+    .route-card .r-desc {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    /* ===================== FAQ ===================== */
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .faq-q {
+      padding: 14px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface);
+      transition: var(--transition);
+      user-select: none;
+    }
+    .faq-q:hover { background: var(--card-2); }
+    .faq-q.open { color: var(--green); }
+    .faq-chevron {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem;
+      color: var(--muted);
+      transition: var(--transition);
+    }
+    .faq-q.open .faq-chevron { transform: rotate(180deg); border-color: var(--green); color: var(--green); }
+    .faq-a {
+      display: none;
+      padding: 14px 18px;
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+      background: var(--card);
+    }
+    .faq-a.open { display: block; }
+
+    /* ===================== TIP BOX ===================== */
+    .tip-box {
+      background: linear-gradient(135deg, rgba(124,58,237,0.08) 0%, rgba(0,200,83,0.06) 100%);
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: var(--radius-sm);
+      padding: 18px 20px;
+      display: flex;
+      gap: 14px;
+    }
+    .tip-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .tip-box strong {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--purple-light);
+      font-weight: 700;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.72rem;
+    }
+    .tip-box p {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ===================== WHY SECTION ===================== */
+    .why-list { display: flex; flex-direction: column; gap: 12px; }
+    .why-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .why-dot {
+      width: 22px; height: 22px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: rgba(0,200,83,0.1);
+      border: 1px solid var(--border-green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem;
+      color: var(--green);
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* ===================== RELATED TOOLS ===================== */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (min-width: 480px) {
+      .tools-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .tool-link {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .tool-link:hover {
+      border-color: var(--border-green);
+      background: rgba(0,200,83,0.04);
+      color: var(--green);
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+    .tool-link .t-icon { font-size: 1.3rem; }
+    .tool-link .t-name { font-weight: 600; }
+    .tool-link .t-desc { font-size: 0.72rem; color: var(--muted); font-weight: 400; }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 20px 28px;
+      background: #060809;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    @media (min-width: 640px) {
+      .footer-inner { grid-template-columns: 2fr 1fr 1fr; }
+    }
+    .footer-brand .logo { margin-bottom: 12px; font-size: 1.2rem; }
+    .footer-brand p { font-size: 0.83rem; color: var(--muted); line-height: 1.7; max-width: 280px; }
+    .footer-col h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul li a {
+      font-size: 0.85rem;
+      color: #667180;
+      transition: color var(--transition);
+    }
+    .footer-col ul li a:hover { color: var(--green); text-decoration: none; }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 28px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: #667180;
+    }
+    .footer-bottom a { color: var(--green); }
+
+    /* ===================== SCROLL GLOW ===================== */
+    .section-card { animation: fadeInUp 0.5s ease both; }
+    @keyframes fadeInUp {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .section-card:nth-child(2) { animation-delay: 0.1s; }
+    .section-card:nth-child(3) { animation-delay: 0.2s; }
+    .section-card:nth-child(4) { animation-delay: 0.3s; }
+
+    /* ===================== MISC ===================== */
+    .green { color: var(--green); }
+    .text-muted { color: var(--muted); font-size: 0.85rem; }
+    .text-sm { font-size: 0.82rem; }
+
+    @media (max-width: 899px) {
+      .calc-card { position: static; }
+    }
+    @media (max-width: 600px) {
+      .routes-grid { grid-template-columns: 1fr 1fr; }
+      .tools-grid { grid-template-columns: 1fr 1fr; }
+    }
   </style>
 </head>
 <body>
-<div class="container">
-  <h1>Fuel Cost Calculator Nigeria</h1>
-  <small>SabiCalc - Smart everyday calculators for Nigerians</small>
-  <h2>Fuel Cost Calculator</h2>
-  <p>Use this fuel cost calculator to estimate petrol expenses for your journey anywhere in Nigeria.</p>
-  <p>Calculate how much your trip will cost based on distance, fuel consumption, and petrol price. Perfect for trips like Lagos to Ibadan or Abuja to Kaduna.</p>
-  <label>Distance (km)</label>
-  <input type="number" id="distance" placeholder="Enter distance">
-  <label>Select Vehicle Type</label>
-  <select id="vehicle">
-    <option value="">-- Choose Vehicle --</option>
-    <option value="15">Small Car (e.g Corolla)</option>
-    <option value="10">SUV</option>
-    <option value="5">Bus</option>
-  </select>
-  <label>Fuel Consumption (km/l)</label>
-  <input type="number" id="consumption" placeholder="Or enter manually">
-  <label>Fuel Price (₦/litre)</label>
-  <input type="number" id="price" placeholder="Enter fuel price">
-  <button onclick="calculate()">Calculate</button>
-  <div id="result"></div>
-  <h2>Common Fuel Cost Questions in Nigeria</h2>
-  <ul>
-    <li>How much fuel do I need from Lagos to Ibadan?</li>
-    <li>How much will petrol cost for a road trip in Nigeria?</li>
-    <li>How do I calculate fuel consumption per kilometer?</li>
-  </ul>
-  <p><strong>Tip:</strong> Fuel prices in Nigeria change often, so always use current petrol price for accurate estimates.</p>
-  <p><a href="data-calculator.html">📶 Data Bundle Value Calculator</a></p>
-  <p><a href="electricity-calculator.html">⚡ Electricity Bill Estimator</a></p>
-  <p><a href="salary-calculator.html">💰 Salary to Daily Spending Calculator</a></p>
-  <p><a href="loan-calculator.html">💸 Loan Repayment Calculator</a></p>
-  <p><a href="transport-calculator.html">🚗 Transport Fare Estimator</a></p>
-  <p><a href="profit-calculator.html">📈 Side Hustle Profit Calculator</a></p>
-</div>
-<script src="script.js"></script>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" aria-label="SabiCalc navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="logo" aria-label="SabiCalc home">
+      <span class="logo-dot"></span>Sabi<span>Calc</span>
+    </a>
+    <div class="nav-links">
+      <a href="fuel-calculator.html" class="active">⛽ Fuel</a>
+      <a href="data-calculator.html">📶 Data</a>
+      <a href="electricity-calculator.html">⚡ Electricity</a>
+      <a href="salary-calculator.html">💰 Salary</a>
+      <a href="loan-calculator.html">💸 Loan</a>
+      <a href="transport-calculator.html">🚗 Transport</a>
+      <a href="profit-calculator.html">📈 Profit</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ PAGE HERO ============ -->
+<header class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-tag">⛽ Fuel Cost Calculator</div>
+    <h1>Know Your <em>Petrol Cost</em> Before You Start the Engine</h1>
+    <p>Enter your trip distance, pick your vehicle, and get an instant estimate of how much fuel your journey will cost in Nigeria — at today's pump price.</p>
+  </div>
+</header>
+
+<!-- ============ MAIN ============ -->
+<main>
+  <div class="main-layout">
+
+    <!-- ===== LEFT: CALCULATOR ===== -->
+    <section aria-label="Fuel cost calculator" class="calc-column">
+      <div class="calc-card">
+        <div class="calc-card-header">
+          <div class="calc-icon" aria-hidden="true">⛽</div>
+          <div>
+            <h2>Fuel Cost Estimator</h2>
+            <p>Instant Nigerian fuel trip cost</p>
+          </div>
+        </div>
+        <div class="calc-body">
+
+          <!-- QUICK ROUTES -->
+          <div class="field">
+            <label>Quick Route <span>– tap to auto-fill distance</span></label>
+            <div class="routes-grid" id="quickRoutes">
+              <div class="route-card" onclick="setRoute(131, 'Lagos → Ibadan')">
+                <div class="r-name">Lagos → Ibadan</div>
+                <div class="r-km">131 km</div>
+              </div>
+              <div class="route-card" onclick="setRoute(186, 'Abuja → Kaduna')">
+                <div class="r-name">Abuja → Kaduna</div>
+                <div class="r-km">186 km</div>
+              </div>
+              <div class="route-card" onclick="setRoute(540, 'Lagos → Abuja')">
+                <div class="r-name">Lagos → Abuja</div>
+                <div class="r-km">540 km</div>
+              </div>
+              <div class="route-card" onclick="setRoute(228, 'PHC → Enugu')">
+                <div class="r-name">PHC → Enugu</div>
+                <div class="r-km">228 km</div>
+              </div>
+              <div class="route-card" onclick="setRoute(284, 'Kano → Abuja')">
+                <div class="r-name">Kano → Abuja</div>
+                <div class="r-km">284 km</div>
+              </div>
+              <div class="route-card" onclick="setRoute(318, 'Benin → Lagos')">
+                <div class="r-name">Benin → Lagos</div>
+                <div class="r-km">318 km</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider-label">or enter manually</div>
+
+          <!-- DISTANCE -->
+          <div class="field">
+            <label for="distance">Distance <span>km</span></label>
+            <div class="input-wrap">
+              <input type="number" id="distance" placeholder="e.g. 131" min="1" inputmode="decimal" aria-label="Trip distance in kilometres">
+              <span class="unit">km</span>
+            </div>
+          </div>
+
+          <!-- VEHICLE TYPE -->
+          <div class="field">
+            <label for="vehicle">Vehicle Type</label>
+            <select id="vehicle" onchange="applyVehicle()" aria-label="Select vehicle type">
+              <option value="">-- Choose a vehicle --</option>
+              <option value="15">🚗 Small Car (e.g. Corolla, Accent) – 15 km/l</option>
+              <option value="12">🚙 Mid-size Sedan (e.g. Camry, Elantra) – 12 km/l</option>
+              <option value="9">🛻 SUV / 4WD (e.g. Rav4, CR-V) – 9 km/l</option>
+              <option value="6">🚐 Commercial Bus / Hiace – 6 km/l</option>
+              <option value="4">🚛 Truck / Heavy Vehicle – 4 km/l</option>
+              <option value="22">🛵 Motorcycle (Okada) – 22 km/l</option>
+            </select>
+          </div>
+
+          <!-- CONSUMPTION -->
+          <div class="field">
+            <label for="consumption">Fuel Consumption <span>override vehicle above if you know yours</span></label>
+            <div class="input-wrap">
+              <input type="number" id="consumption" placeholder="e.g. 12" min="1" inputmode="decimal" aria-label="Fuel consumption in kilometres per litre">
+              <span class="unit">km/l</span>
+            </div>
+          </div>
+
+          <!-- FUEL PRICE -->
+          <div class="field">
+            <label for="price">Petrol Price <span>₦/litre – check current pump price</span></label>
+            <div class="input-wrap">
+              <input type="number" id="price" placeholder="e.g. 930" min="1" inputmode="decimal" aria-label="Fuel price per litre in naira">
+              <span class="unit">₦/l</span>
+            </div>
+          </div>
+
+          <button class="btn-calc" onclick="calculate()" aria-label="Calculate fuel cost">
+            ⚡ Calculate Fuel Cost
+          </button>
+
+          <!-- RESULT -->
+          <div id="result" class="result-panel" role="region" aria-live="polite" aria-label="Calculation result"></div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== RIGHT: CONTENT ===== -->
+    <aside class="content-col">
+
+      <!-- SMART TIP -->
+      <div class="section-card">
+        <div class="tip-box">
+          <div class="tip-icon">💡</div>
+          <div>
+            <strong>Smart Tip</strong>
+            <p>Fuel prices in Nigeria change frequently. Always confirm today's pump price before estimating trip costs. With deregulation, expect prices to vary across states by ₦20–₦80 per litre.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- WHY THIS MATTERS -->
+      <div class="section-card">
+        <h3 class="section-title">
+          Why Calculate Fuel Cost First?
+          <span class="badge">Important</span>
+        </h3>
+        <div class="why-list">
+          <div class="why-item">
+            <span class="why-dot">₦</span>
+            <span>Fuel is now one of the biggest daily expenses for Nigerians. With petrol above ₦900/litre, a Lagos–Ibadan trip costs over ₦8,000 in fuel alone.</span>
+          </div>
+          <div class="why-item">
+            <span class="why-dot">🎯</span>
+            <span>Knowing your trip cost ahead of time helps you decide whether to drive, take public transport, or split the trip with others.</span>
+          </div>
+          <div class="why-item">
+            <span class="why-dot">💼</span>
+            <span>Business owners and logistics drivers use this to price their delivery services and transport fares accurately — avoiding losses.</span>
+          </div>
+          <div class="why-item">
+            <span class="why-dot">📊</span>
+            <span>Fleet managers use fuel cost calculators to monitor driver efficiency and control fuel expenses across multiple vehicles.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="section-card">
+        <h3 class="section-title">Frequently Asked Questions</h3>
+        <div class="faq-list" id="faqList">
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
+              How much fuel does Lagos to Ibadan use?
+              <span class="faq-chevron">▼</span>
+            </div>
+            <div class="faq-a">
+              The Lagos–Ibadan expressway is approximately 131 km. A typical small car doing 13 km/litre would consume about <strong>10 litres</strong>. At ₦930/litre, that's roughly <strong>₦9,300</strong> one-way. An SUV doing 9 km/litre would use about 14.5 litres — around ₦13,500.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
+              What is a good fuel consumption rate for Nigerian roads?
+              <span class="faq-chevron">▼</span>
+            </div>
+            <div class="faq-a">
+              On Nigerian highways, a small petrol car typically achieves <strong>11–15 km/litre</strong>. City driving in Lagos or Abuja traffic can drop this to <strong>7–10 km/litre</strong> due to stop-and-go conditions. SUVs and buses consume significantly more. If you know your own car's consumption, entering it manually gives the most accurate result.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
+              How do I find out my car's fuel consumption?
+              <span class="faq-chevron">▼</span>
+            </div>
+            <div class="faq-a">
+              Fill your tank completely. Reset your trip odometer to zero. Drive normally until you need fuel again. Refill and note how many litres you used. Divide the kilometres driven by litres used. For example: 300 km ÷ 25 litres = <strong>12 km/litre</strong>. This is your real-world fuel consumption.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
+              Does this calculator work for diesel vehicles?
+              <span class="faq-chevron">▼</span>
+            </div>
+            <div class="faq-a">
+              Yes. Simply enter your vehicle's diesel consumption in the "Fuel Consumption" field and use the current diesel price per litre as your fuel price. Diesel prices in Nigeria are usually different from petrol prices, so always check the current rate at the filling station.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)" tabindex="0" role="button" aria-expanded="false">
+              Why does my result say to budget extra?
+              <span class="faq-chevron">▼</span>
+            </div>
+            <div class="faq-a">
+              Real-world driving involves variables like traffic jams, AC usage, road gradients, and vehicle load. These factors can increase actual fuel consumption by 10–25% above the theoretical estimate. SabiCalc adds a buffer recommendation so you're not stranded on the highway with an empty tank.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- POPULAR ROUTES REFERENCE -->
+      <div class="section-card">
+        <h3 class="section-title">Popular Nigerian Road Distances</h3>
+        <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="text-align:left; padding:8px 10px; color:var(--muted); font-weight:600; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em;">Route</th>
+              <th style="text-align:right; padding:8px 10px; color:var(--muted); font-weight:600; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em;">Distance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:9px 10px; color:var(--text);">Lagos → Ibadan</td><td style="padding:9px 10px; text-align:right; color:var(--green); font-weight:600;">131 km</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:9px 10px; color:var(--text);">Lagos → Abuja</td><td style="padding:9px 10px; text-align:right; color:var(--green); font-weight:600;">540 km</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:9px 10px; color:var(--text);">Abuja → Kaduna</td><td style="padding:9px 10px; text-align:right; color:var(--green); font-weight:600;">186 km</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:9px 10px; color:var(--text);">Abuja → Kano</td><td style="padding:9px 10px; text-align:right; color:var(--green); font-weight:600;">284 km</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:9px 10px; color:var(--text);">Port Harcourt → Enugu</td><td style="padding:9px 10px; text-align:right; color:var(--green); font-weight:600;">228 km</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:9px 10px; color:var(--text);">Benin City → Lagos</td><td style="padding:9px 10px; text-align:right; color:var(--green); font-weight:600;">318 km</td></tr>
+            <tr style="border-bottom:1px solid var(--border);"><td style="padding:9px 10px; color:var(--text);">Ibadan → Ilorin</td><td style="padding:9px 10px; text-align:right; color:var(--green); font-weight:600;">97 km</td></tr>
+            <tr><td style="padding:9px 10px; color:var(--text);">Owerri → Calabar</td><td style="padding:9px 10px; text-align:right; color:var(--green); font-weight:600;">354 km</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.75rem; color:var(--muted); margin-top:10px;">Distances are approximate road distances. Actual GPS routes may vary slightly.</p>
+      </div>
+
+      <!-- RELATED TOOLS -->
+      <div class="section-card">
+        <h3 class="section-title">More SabiCalc Tools</h3>
+        <div class="tools-grid">
+          <a href="transport-calculator.html" class="tool-link">
+            <span class="t-icon">🚗</span>
+            <span class="t-name">Transport Fare</span>
+            <span class="t-desc">Bus & taxi cost</span>
+          </a>
+          <a href="electricity-calculator.html" class="tool-link">
+            <span class="t-icon">⚡</span>
+            <span class="t-name">Electricity Bill</span>
+            <span class="t-desc">NEPA bill estimator</span>
+          </a>
+          <a href="salary-calculator.html" class="tool-link">
+            <span class="t-icon">💰</span>
+            <span class="t-name">Salary Breakdown</span>
+            <span class="t-desc">Daily spending guide</span>
+          </a>
+          <a href="data-calculator.html" class="tool-link">
+            <span class="t-icon">📶</span>
+            <span class="t-name">Data Bundle</span>
+            <span class="t-desc">Value checker</span>
+          </a>
+          <a href="loan-calculator.html" class="tool-link">
+            <span class="t-icon">💸</span>
+            <span class="t-name">Loan Repayment</span>
+            <span class="t-desc">Monthly payment</span>
+          </a>
+          <a href="profit-calculator.html" class="tool-link">
+            <span class="t-icon">📈</span>
+            <span class="t-name">Side Hustle Profit</span>
+            <span class="t-desc">Business margins</span>
+          </a>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo"><span class="logo-dot"></span>Sabi<span>Calc</span></div>
+      <p>Smart everyday calculators built for Nigerians. From fuel costs to electricity bills — SabiCalc makes the numbers work for you.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Calculators</h4>
+      <ul>
+        <li><a href="fuel-calculator.html">Fuel Cost</a></li>
+        <li><a href="electricity-calculator.html">Electricity Bill</a></li>
+        <li><a href="data-calculator.html">Data Bundle Value</a></li>
+        <li><a href="salary-calculator.html">Salary Breakdown</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>More Tools</h4>
+      <ul>
+        <li><a href="loan-calculator.html">Loan Repayment</a></li>
+        <li><a href="transport-calculator.html">Transport Fare</a></li>
+        <li><a href="profit-calculator.html">Side Hustle Profit</a></li>
+        <li><a href="index.html">All Calculators</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 SabiCalc — Built for Nigerians 🇳🇬</span>
+    <span>Free to use. No sign-up required.</span>
+  </div>
+</footer>
+
+<!-- ============ JAVASCRIPT ============ -->
+<script>
+  /* ======= QUICK ROUTE FILL ======= */
+  function setRoute(km, name) {
+    document.getElementById('distance').value = km;
+    // Highlight the active card
+    document.querySelectorAll('.route-card').forEach(c => c.style.borderColor = '');
+    event.currentTarget.style.borderColor = 'var(--green)';
+    event.currentTarget.style.background = 'rgba(0,200,83,0.06)';
+  }
+
+  /* ======= VEHICLE SELECT ======= */
+  function applyVehicle() {
+    const val = document.getElementById('vehicle').value;
+    if (val) {
+      document.getElementById('consumption').value = val;
+    }
+  }
+
+  /* ======= MAIN CALCULATE ======= */
+  function calculate() {
+    const distanceVal    = parseFloat(document.getElementById('distance').value);
+    const consumptionVal = parseFloat(document.getElementById('consumption').value);
+    const priceVal       = parseFloat(document.getElementById('price').value);
+    const resultDiv      = document.getElementById('result');
+
+    // Validation
+    if (!distanceVal || distanceVal <= 0) {
+      showError(resultDiv, 'Please enter a valid trip distance in kilometres.');
+      return;
+    }
+    if (!consumptionVal || consumptionVal <= 0) {
+      showError(resultDiv, 'Please select a vehicle type or enter your fuel consumption (km/litre).');
+      return;
+    }
+    if (!priceVal || priceVal <= 0) {
+      showError(resultDiv, 'Please enter the current petrol price per litre (₦).');
+      return;
+    }
+
+    // Core calculation
+    const litresNeeded = distanceVal / consumptionVal;
+    const totalCost    = litresNeeded * priceVal;
+    const bufferCost   = totalCost * 1.15; // 15% real-world buffer
+    const costPerKm    = totalCost / distanceVal;
+
+    // Format helpers
+    const fmt  = n => n.toLocaleString('en-NG', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    const fmt2 = n => n.toLocaleString('en-NG', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
+    resultDiv.className = 'result-panel show';
+    resultDiv.innerHTML = `
+      <div class="result-top">
+        <div class="result-label">Estimated Fuel Cost</div>
+        <div class="result-amount"><sup>₦</sup>${fmt(totalCost)}</div>
+        <div class="result-note">for ${fmt(distanceVal)} km at ₦${fmt(priceVal)}/litre</div>
+      </div>
+      <div class="result-grid">
+        <div class="result-stat">
+          <div class="s-val">${fmt2(litresNeeded)} L</div>
+          <div class="s-lbl">Litres needed</div>
+        </div>
+        <div class="result-stat">
+          <div class="s-val">₦${fmt2(costPerKm)}</div>
+          <div class="s-lbl">Cost per km</div>
+        </div>
+        <div class="result-stat">
+          <div class="s-val">${fmt2(consumptionVal)} km/l</div>
+          <div class="s-lbl">Fuel efficiency</div>
+        </div>
+        <div class="result-stat">
+          <div class="s-val">₦${fmt(bufferCost)}</div>
+          <div class="s-lbl">Budget (+15% buffer)</div>
+        </div>
+      </div>
+      <div class="result-alert">
+        ⚠️ Real-world conditions (traffic, AC, load) can increase consumption by 10–25%. We recommend budgeting <strong>₦${fmt(bufferCost)}</strong> to be safe.
+      </div>
+    `;
+
+    // Smooth scroll on mobile
+    if (window.innerWidth < 900) {
+      resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  /* ======= RESET ======= */
+  function resetCalc() {
+    document.getElementById('distance').value    = '';
+    document.getElementById('consumption').value = '';
+    document.getElementById('price').value       = '';
+    document.getElementById('vehicle').value     = '';
+    const r = document.getElementById('result');
+    r.className = 'result-panel';
+    r.innerHTML = '';
+    document.querySelectorAll('.route-card').forEach(c => {
+      c.style.borderColor  = '';
+      c.style.background   = '';
+    });
+  }
+
+  /* ======= ERROR DISPLAY ======= */
+  function showError(el, msg) {
+    el.className = 'result-panel show';
+    el.innerHTML = `
+      <div style="background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.25); border-radius:10px; padding:14px 18px; color:#f87171; font-size:0.88rem; display:flex; gap:10px; align-items:flex-start;">
+        <span style="flex-shrink:0; font-size:1rem;">⚠️</span>
+        <span>${msg}</span>
+      </div>
+    `;
+  }
+
+  /* ======= FAQ TOGGLE ======= */
+  function toggleFaq(el) {
+    const answer = el.nextElementSibling;
+    const isOpen = el.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.classList.remove('open');
+      q.setAttribute('aria-expanded', 'false');
+      q.nextElementSibling.classList.remove('open');
+    });
+    if (!isOpen) {
+      el.classList.add('open');
+      el.setAttribute('aria-expanded', 'true');
+      answer.classList.add('open');
+    }
+  }
+
+  /* ======= KEYBOARD SUPPORT FOR FAQ ======= */
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleFaq(q); }
+    });
+  });
+
+  /* ======= ENTER KEY SUBMIT ======= */
+  ['distance','consumption','price'].forEach(id => {
+    document.getElementById(id).addEventListener('keydown', e => {
+      if (e.key === 'Enter') calculate();
+    });
+  });
+</script>
+
 </body>
 </html>
